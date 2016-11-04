@@ -207,14 +207,7 @@ let dataset = [T; H]
 let hypset = [Fair; Skewed]
 
 (* A fair coin. This is a probability over [dataset]. *)
-let unif =
-  {
-    support = dataset;
-    prb =
-      function
-      | T -> 0.5
-      | H -> 0.5
-  }
+let unif = uniform dataset
 
 (* A skewed coin. Falls mostly on heads. *)
 let skewed =

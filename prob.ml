@@ -21,27 +21,6 @@ let kleisli : 'a 'b 'c. ('a, 'b) kernel -> ('b, 'c) kernel -> ('a, 'c) kernel =
         prc f
       )
 
-(* Pushforward *)
-let pushforward : 'a 'b. 'a prob -> ('a, 'b) kernel -> 'b prob =
-  fun prb k f ->
-    prb (fun a -> k a f)
-
-(* A kernel is a function valued in probabilities *)
-type ('a, 'b) kernel = 'a -> 'b prob
-
-(* The Dirac kernel (a natural transformation!) *)
-let dirac : 'a. 'a -> 'a prob =
-  fun x f -> f x
-
-(* Kleisli composition *)
-let kleisli : 'a 'b 'c. ('a, 'b) kernel -> ('b, 'c) kernel -> ('a, 'c) kernel =
-  fun k1 k2 a f ->
-    let prb = k1 a in
-    prb (fun b -> 
-        let prc = k2 b in
-        prc f
-      )
-
 (* Pushforward along a kernel *)
 let pushforward : 'a 'b. 'a prob -> ('a, 'b) kernel -> 'b prob =
   fun prb k f ->
